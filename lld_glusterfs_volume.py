@@ -8,7 +8,7 @@ from glustercmd import GlusterCommand
 
 def read_file_to_list(pathfile):
     with open(pathfile, 'r') as f:
-    lines = f.readlines()
+        lines = f.readlines()
     result = [item for item in [line.strip() for line in lines] if item]
     return result
 
