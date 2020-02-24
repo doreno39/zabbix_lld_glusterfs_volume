@@ -4,5 +4,9 @@
 # Author: TruongLN
 # Date: 20200224
 
+from glustercmd import GlusterCommand
 
 if __name__ == "__main__":
+    cmd = GlusterCommand('gluster volume list', timeout=10)
+    cmd.run()
+    print cmd.stdout
