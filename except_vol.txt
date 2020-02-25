@@ -19,7 +19,6 @@ omg2_thai
 pokiwar
 sdk_temp
 talktv
-test
 tlbbweb
 vlcmnew
 vuigame
