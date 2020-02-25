@@ -4,6 +4,7 @@
 # Author: TruongLN
 # Date: 20200224
 
+import os
 from glustercmd import GlusterCommand
 import xml.etree.ElementTree as ETree
 from xml.parsers.expat import ExpatError
