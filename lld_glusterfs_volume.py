@@ -25,6 +25,6 @@ if __name__ == "__main__":
     for vol in vols:
         if vol not in except_vols:
             #append vao dict sau do dump json lam input cho zabbix
-            data.append({"VOLUMENAME": vol})
+            data.append({"#VOLUMENAME": vol})
 
     print(json.dumps({"data": data}, indent=4))
