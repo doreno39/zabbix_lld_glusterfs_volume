@@ -14,13 +14,14 @@ def read_file_to_list(pathfile):
     result = [item for item in [line.strip() for line in lines] if item]
     return result
 
-def write_file(vol, path, hard_limit, used_space, percent):
+def write_file(vol, path, hard_limit, used_space, percent, path_script):
     f = open("limit_info/%s" % vol, "w")
     f.write("%s %s %s %s" % (path, hard_limit, used_space, percent))
     f.close()
 
 if __name__ == "__main__":
-    except_vol_path_file = "except_vol.txt"
+    path_script = os.path.join(os.path.dirname(os.path.abspath(__file__)))
+    except_vol_path_file = "%s/except_vol.txt" % path_script
     data = []
 
     cmd = GlusterCommand('gluster volume list', timeout=10)
@@ -47,4 +48,4 @@ if __name__ == "__main__":
             
             percent = int(used_space) / int(hard_limit)
             
-            write_file(vol, path, hard_limit, used_space, percent)
+            write_file(vol, path, hard_limit, used_space, percent, path_script)

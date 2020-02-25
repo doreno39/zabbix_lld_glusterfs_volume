@@ -14,7 +14,8 @@ def read_file_to_list(pathfile):
     return result
 
 if __name__ == "__main__":
-    except_vol_path_file = "except_vol.txt"
+    path_script = os.path.join(os.path.dirname(os.path.abspath(__file__)))
+    except_vol_path_file = "%s/except_vol.txt" % path_script
     data = []
 
     cmd = GlusterCommand('gluster volume list', timeout=10)
