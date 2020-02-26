@@ -1,12 +1,7 @@
 fs
-g10seapp
-games
 gn
-gnm
 gs_ftp
 gs_ks_new
-gsn_backup
-gtdata_tmp
 jx1
 jx1ctc
 jx2
@@ -14,10 +9,7 @@ jxf
 ks_temp
 msg
 nlvn
-omg2
-omg2_thai
 pokiwar
-sdk_temp
 talktv
 tlbbweb
 vlcmnew

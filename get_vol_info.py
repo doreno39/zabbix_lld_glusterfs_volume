@@ -15,9 +15,9 @@ def read_file_to_list(pathfile):
     result = [item for item in [line.strip() for line in lines] if item]
     return result
 
-def write_file(vol, path, hard_limit, used_space, percent, path_script):
-    f = open("limit_info/%s" % vol, "w")
-    f.write("%s %s %s %s" % (path, hard_limit, used_space, percent))
+def write_file(path_file, path, hard_limit, used_space, used_percent):
+    f = open(path_file, "w")
+    f.write("%s %s %s %s" % (path, hard_limit, used_space, used_percent))
     f.close()
 
 if __name__ == "__main__":
@@ -46,7 +46,14 @@ if __name__ == "__main__":
                 hard_limit = elem.text
             for elem in xml_root.iterfind('volQuota/limit/used_space'):
                 used_space = elem.text
+            used_percent = round(float(used_space) / float(hard_limit), 2)
             
-            percent = int(used_space) / int(hard_limit)
-            
-            write_file(vol, path, hard_limit, used_space, percent, path_script)
+            path_dir = "%s/limit_info" % (path_script)
+            path_file = "%s/%s" % (path_dir, vol)
+            if not os.path.isdir(path_dir):
+                try:
+                    os.mkdir(path_dir)
+                except OSError:
+                    print "Creation of the directory %s failed." % path_dir
+
+            write_file(path_file, path, hard_limit, used_space, used_percent)
