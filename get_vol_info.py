@@ -46,7 +46,7 @@ if __name__ == "__main__":
                 hard_limit = elem.text
             for elem in xml_root.iterfind('volQuota/limit/used_space'):
                 used_space = elem.text
-            used_percent = round(float(used_space) / float(hard_limit), 2)
+            used_percent = (round(float(used_space) / float(hard_limit), 2))*100
             
             path_dir = "%s/limit_info" % (path_script)
             path_file = "%s/%s" % (path_dir, vol)
