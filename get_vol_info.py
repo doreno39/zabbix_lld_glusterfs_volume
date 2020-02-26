@@ -34,26 +34,31 @@ if __name__ == "__main__":
         if vol not in except_vols:
             #check qouta ghi xuong file de zabbix doc
             cmd = GlusterCommand('gluster volume quota %s list --xml' % (vol), timeout=10)
-            cmd.run()
-            
-            field_list = ['path', 'hard_limit', 'used_space', 'avail_space']
-            xml_string = ''.join(cmd.stdout)
-            xml_root = ETree.fromstring(xml_string)
-                            
-            for elem in xml_root.iterfind('volQuota/limit/path'):
-                path = elem.text
-            for elem in xml_root.iterfind('volQuota/limit/hard_limit'):
-                hard_limit = elem.text
-            for elem in xml_root.iterfind('volQuota/limit/used_space'):
-                used_space = elem.text
-            used_percent = round((float(used_space) / float(hard_limit))*100, 2)
-            
-            path_dir = "%s/limit_info" % (path_script)
-            path_file = "%s/%s" % (path_dir, vol)
-            if not os.path.isdir(path_dir):
-                try:
-                    os.mkdir(path_dir)
-                except OSError:
-                    print "Creation of the directory %s failed." % path_dir
+            err = 0
+            try:
+                cmd.run()
+            except:
+                err = 1
+                pass
+            if cmd.rc == 0 and err == 0:
+                field_list = ['path', 'hard_limit', 'used_space', 'avail_space']
+                xml_string = ''.join(cmd.stdout)
+                xml_root = ETree.fromstring(xml_string)
+                                
+                for elem in xml_root.iterfind('volQuota/limit/path'):
+                    path = elem.text
+                for elem in xml_root.iterfind('volQuota/limit/hard_limit'):
+                    hard_limit = elem.text
+                for elem in xml_root.iterfind('volQuota/limit/used_space'):
+                    used_space = elem.text
+                used_percent = round((float(used_space) / float(hard_limit))*100, 2)
+                
+                path_dir = "%s/limit_info" % (path_script)
+                path_file = "%s/%s" % (path_dir, vol)
+                if not os.path.isdir(path_dir):
+                    try:
+                        os.mkdir(path_dir)
+                    except OSError:
+                        print "Creation of the directory %s failed." % path_dir
 
-            write_file(path_file, path, hard_limit, used_space, used_percent)
+                write_file(path_file, path, hard_limit, used_space, used_percent)
