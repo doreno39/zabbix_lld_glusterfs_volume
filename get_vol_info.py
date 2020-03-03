@@ -29,7 +29,8 @@ if __name__ == "__main__":
     cmd.run()
     vols = cmd.stdout
 
-    except_vols = read_file_to_list(except_vol_path_file)
+    # except_vols = read_file_to_list(except_vol_path_file)
+    except_vols = []
     for vol in vols:
         if vol not in except_vols:
             #check qouta ghi xuong file de zabbix doc
